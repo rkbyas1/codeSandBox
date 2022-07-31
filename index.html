@@ -2,28 +2,34 @@
 <html>
   <head>
     <title>ToDoApp_js</title>
+    <link rel="stylesheet" href="src/styles.css" />
     <meta charset="UTF-8" />
   </head>
 
   <body>
-    <div>
+    <div class="input-area">
       <input placeholder="todoを入力" />
       <button>追加</button>
     </div>
-    <div>
-      <p>未完了のTodo</p>
+    <div class="impomplete">
+      <p class="title">未完了のTodo</p>
       <ul>
-        <div>
+        <div class="list-row">
+          <li>todoです</li>
+          <button>完了</button>
+          <button>削除</button>
+        </div>
+        <div class="list-row">
           <li>todoです</li>
           <button>完了</button>
           <button>削除</button>
         </div>
       </ul>
     </div>
-    <div>
-      <p>完了したTodo</p>
+    <div class="complete">
+      <p class="title">完了したTodo</p>
       <ul>
-        <div>
+        <div class="list-row">
           <li>todoでした</li>
           <button>戻す</button>
         </div>
