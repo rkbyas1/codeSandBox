@@ -8,31 +8,20 @@
 
   <body>
     <div class="input-area">
-      <input placeholder="todoを入力" />
-      <button>追加</button>
+      <input id="inp_txt" placeholder="todoを入力" />
+      <button id="add">追加</button>
     </div>
     <div class="impomplete">
       <p class="title">未完了のTodo</p>
-      <ul>
-        <div class="list-row">
-          <li>todoです</li>
-          <button>完了</button>
-          <button>削除</button>
-        </div>
-        <div class="list-row">
-          <li>todoです</li>
-          <button>完了</button>
-          <button>削除</button>
-        </div>
+      <ul id="imcomp">
+        <div class="list-row"></div>
+        <div class="list-row"></div>
       </ul>
     </div>
     <div class="complete">
       <p class="title">完了したTodo</p>
-      <ul>
-        <div class="list-row">
-          <li>todoでした</li>
-          <button>戻す</button>
-        </div>
+      <ul id="comp">
+        <div class="list-row"></div>
       </ul>
     </div>
     <script src="src/index.js"></script>
