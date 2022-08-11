@@ -1,78 +1,84 @@
-/**分割代入 */
-// const val = {
-//   name: "KR",
-//   age: 30
-// };
+let back_button, add_button, del_button, comp_button;
 
-// const message = `名前は${val.name},年齢は${val.age}歳です`;
+// 追加アクション
+add_button = document.getElementById("add");
+add_button.addEventListener("click", () => onClickAdd());
 
-// const { name, age } = val;
-// const message1 = `名前は${name},年齢は${age}歳です`;
+// 戻す処理の関数
+const create_imcomp_el = () => {
+  del_button = document.createElement("button");
+  del_button.innerHTML = "削除";
+  comp_button = document.createElement("button");
+  comp_button.innerHTML = "完了";
+  // 削除アクション
+  del_button.addEventListener("click", (el) => {
+    delete_list(el.target.parentNode, "imcomp");
+  });
+  // 完了アクション
+  comp_button.addEventListener("click", (el) => {
+    delete_list(el.target.parentNode, "imcomp");
+    create_comp_el(el.target.parentNode);
+  });
+};
 
-// console.log(message1);
+// 完了処理の関数
+const create_comp_el = (node) => {
+  back_button = document.createElement("button");
+  back_button.innerHTML = "戻す";
 
-// const arr = ['KR', 30];
+  const txt = node.firstChild.innerHTML;
+  create_node(txt, "comp");
 
-// const msg3 = `名前${arr[0]},年齢${arr[1]}`;
+  // 戻すアクション
+  back_button.addEventListener("click", (el) => {
+    create_imcomp_el();
+    const node = el.target.parentNode;
+    delete_list(node, "comp");
+    const txt = node.firstChild.innerHTML;
+    create_node(txt, "imcomp");
+  });
+};
 
-// const [name, age] = arr;
-// const msg4 = `名前${name},年齢${age}`;
-// console.log(msg4);
+// 追加ボタンの処理
+const onClickAdd = () => {
+  create_imcomp_el();
 
-/**デフォルト値、引数 */
-// const sayHello = (name = 'ゲスト') => {
-//   console.log(`こんにちは${name}さん`);
-// }
-// sayHello('むう');
+  // 入力したテキスト値を取得
+  const el = document.getElementById("inp_txt");
+  const txt_val = el.value;
+  el.value = "";
 
-/**スプレッド構文 */
-// const arr = [1,2,3,4];
-// // console.log(...arr);
+  // リスト追加、ノード新規作成
+  create_node(txt_val, "imcomp");
+};
 
-// const sumFunc = (num, num1, num2, num3) => {
-//   console.log(num + num1 + num2 + num3)
-// };
+// リストへの追加関数
+const create_node = (txt_val, list_kbn) => {
+  let div, li;
+  // 追加するエレメントを生成
+  div = document.createElement("div");
+  div.className = "list-row";
+  li = document.createElement("li");
+  li.innerHTML = txt_val;
+  div.appendChild(li);
 
-// sumFunc(...arr);
-
-// const arr2 = {
-//   name: "KR",
-//   age: 30
-// };
-// const [a, b, ...ar] = arr2;
-// console.log(ar);
-
-// const arr3 = {
-//   address: "XXXX",
-//   profession: "ITエンジニア"
-// };
-// const arr4 = {
-//   ...arr2,
-//   ...arr3
-// };
-// console.log(arr4);
-
-const arr = ["RK", "田中", "山岡"];
-
-// for (let i = 0; i < arr.length; i++) {
-//   console.log(arr[i]);
-// }
-
-const new_arr = arr.map((val, index) => {
-  if (index == 0) {
-    return val;
-  } else {
-    return `${val}さん`;
+  // 未完了または完了のリストに追加し、必要なボタンを付加
+  switch (list_kbn) {
+    case "imcomp":
+      div.appendChild(comp_button);
+      div.appendChild(del_button);
+      break;
+    case "comp":
+      div.appendChild(back_button);
+      break;
+    default:
+      break;
   }
-});
-console.log(new_arr);
+  // DOMに反映
+  document.getElementById(list_kbn).appendChild(div);
+};
 
-// const number_arr = [
-//   1,2,3,4,5
-// ];
-
-// const new_ar = number_arr.filter(val => {
-//   return val % 2 !== 0;
-// });
-
-// console.log(new_ar);
+// 削除処理の関数
+const delete_list = (target, list_type) => {
+  document.getElementById(list_type).removeChild(target);
+};
